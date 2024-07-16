@@ -38,6 +38,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!credentials || !credentials.email || !credentials.password) {
           throw new Error("Invalid input.");
         }
+        console.log("ini credential", credentials);
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}api/v1/auth`,
           {
@@ -52,6 +53,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             credentials: "include",
           }
         );
+        console.log("ini rest", res);
 
         if (!res.ok) return null;
 
@@ -86,7 +88,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   // pages: {
-  //   signIn: "/sign-in",
+  //   signIn: "/login",
   // },
   callbacks: {
     async jwt({ token, user, account }) {
@@ -104,4 +106,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
   },
+  // callbacks: {
+  //   async jwt({ token, user }) {
+  //     if (user) {
+  //       token.role = user.role;
+  //       token.accessToken = user.token;
+  //     }
+  //     return token;
+  //   },
+  //   async session({ session, token }) {
+  //     session.user.role = token.role;
+  //     session.user.accessToken = token.accessToken;
+  //     return session;
+  //   },
+  // },
 });
