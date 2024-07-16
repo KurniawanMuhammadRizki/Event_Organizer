@@ -3,8 +3,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { uploadImageToCloudinary } from "../../utils/uploadFileToCloudinary";
-// Sesuaikan path impor
+import { uploadImageToCloudinary } from "@/utils/uploadFileToCloudinary";
 
 const UserProfileForm = () => {
   return (
@@ -20,28 +19,10 @@ const UserProfileForm = () => {
           setSubmitting(false);
           return;
         }
-
-        try {
-          const photoProfileLink = await uploadImageToCloudinary(
-            values.photoProfile
-          );
-          console.log("imgUrlnya: ", photoProfileLink);
-
-          const userProfile = {
-            username: values.username,
-            photoProfileLink: photoProfileLink,
-          };
-
-          await axios.post(
-            "http://localhost:8080/api/user/profile",
-            userProfile
-          );
-        } catch (error) {
-          console.error("Error submitting form:", error);
-          alert("An error occurred while submitting the form");
-        } finally {
-          setSubmitting(false);
-        }
+        const photoProfileLink = await uploadImageToCloudinary(
+          values.photoProfile
+        );
+        console.log("imgUrlnya: ", photoProfileLink);
       }}>
       {({ setFieldValue }) => (
         <Form>
