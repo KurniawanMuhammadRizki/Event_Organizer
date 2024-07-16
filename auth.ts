@@ -53,7 +53,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             credentials: "include",
           }
         );
-        console.log();
+        console.log("ini rest", res);
 
         if (!res.ok) return null;
 
@@ -106,4 +106,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
   },
+  // callbacks: {
+  //   async jwt({ token, user }) {
+  //     if (user) {
+  //       token.role = user.role;
+  //       token.accessToken = user.token;
+  //     }
+  //     return token;
+  //   },
+  //   async session({ session, token }) {
+  //     session.user.role = token.role;
+  //     session.user.accessToken = token.accessToken;
+  //     return session;
+  //   },
+  // },
 });
