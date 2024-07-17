@@ -6,7 +6,6 @@ import "./globals.css";
 import { QueryClientProvider } from "@tanstack/react-query";
 import queryClient from "@/queries/queriesClient";
 import { SessionProvider } from "next-auth/react";
-import { TokenProvider } from "./dummy/tokenContext";
 
 const inter = Ubuntu({
   subsets: ["latin"],

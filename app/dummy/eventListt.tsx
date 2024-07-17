@@ -55,7 +55,6 @@ const EventListt = () => {
         setEvents(data);
         console.log("ini data: ", data.data[0].companyName);
       } catch (e) {
-        setError(e.message);
         console.error("Error fetching events:", e);
       } finally {
         setIsLoading(false);
@@ -78,7 +77,8 @@ const EventListt = () => {
       <h1>Events</h1>
 
       {events.length > 0 ? (
-        <h3>{events.data.data[0].companyName}</h3>
+        // <h3>{events.data.data[0].companyName}</h3>
+        <h3>{events}</h3>
       ) : (
         <p>No events found.</p>
       )}
