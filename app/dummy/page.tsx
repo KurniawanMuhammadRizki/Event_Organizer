@@ -8,12 +8,17 @@ import EventList from "./eventListt";
 import { useSession } from "next-auth/react";
 // import EventPage from "./eventPage";
 // import { useTokenContext } from "./tokenContext";
-
+interface UserSession {
+  email: string;
+  role: string;
+  token: string;
+}
 const UserProfileForm = dynamic(() => import("../dummy/userProfileForm"), {
   ssr: false,
 });
 const DummyPage = () => {
   const { data: session } = useSession();
+  const user = session?.user as UserSession;
   return (
     <div>
       {/* <UserProfileForm /> */}
@@ -21,10 +26,10 @@ const DummyPage = () => {
       {/* <UserProfileForm /> */}
 
       {/* <EventList /> */}
-      {/* <div className="mt-20">
-        <p>Email: {session?.user?.email}</p>
-        <p>Email: {session?.user?.token}</p>
-      </div> */}
+      <div className="mt-20">
+        <p>Email: {user?.email}</p>
+        <p>Email: {user?.token}</p>
+      </div>
 
       <UserProfileForm />
     </div>

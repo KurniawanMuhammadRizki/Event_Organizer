@@ -12,6 +12,7 @@ const Test = () => {
     <div className="bg-red-500 h-64 text-slate-50">
       {session && session.user ? (
         <div>
+          {/* {session.token} */}
           <p>Email: {session.user.email}</p>
           {/* <p>Email: {session.user.role}</p>
           <p>Email: {session.user.token}</p> */}

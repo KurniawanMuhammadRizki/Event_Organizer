@@ -1,8 +1,9 @@
-import NextAuth from "next-auth";
+import NextAuth, { User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
 import { JWT } from "next-auth/jwt";
 import { jwtDecode } from "jwt-decode";
+import { access } from "fs";
 
 interface DecodedToken {
   iss: string;
@@ -20,11 +21,11 @@ interface UserSession {
   token: string;
 }
 
-interface User {
-  email: string;
-  role: string;
-  token: string;
-}
+// interface User {
+//   email: string;
+//   role: string;
+//   token: string;
+// }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -77,7 +78,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         });
         // decode jwt
         const decoded = jwtDecode<DecodedToken>(user.token);
-        const userObject: User = {
+        const userObject: UserSession = {
           email: decoded.sub,
           role: decoded.scope,
           token: user.token,
@@ -87,13 +88,29 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
-  // pages: {
-  //   signIn: "/login",
-  // },
+  pages: {
+    signIn: "/login",
+  },
   callbacks: {
-    async jwt({ token, user, account }) {
-      if (account?.provider === "credentials") {
-        return { ...token, ...user };
+    // async jwt({ token, user, account }) {
+    //   if (account?.provider === "credentials") {
+    //     return { ...token, ...user };
+    //   }
+    //   return token;
+    // },
+
+    async jwt({
+      token,
+      user,
+    }: {
+      token: JWT;
+      user: User & { role?: string; token?: string };
+    }) {
+      if (user) {
+        token.role = user.role;
+        token.accessToken = user.token;
+        token.email = user.email;
+        token.token = user.token;
       }
       return token;
     },
