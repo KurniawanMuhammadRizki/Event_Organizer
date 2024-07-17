@@ -47,7 +47,7 @@ const UserProfileForm = () => {
       }}>
       {({ setFieldValue }) => (
         <Form>
-          <div>
+          <div className="mt-48">
             <label htmlFor="username">Username</label>
             <Field name="username" type="text" />
             <ErrorMessage name="username" component="div" />
