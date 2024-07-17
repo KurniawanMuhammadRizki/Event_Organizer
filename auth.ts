@@ -3,6 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
 import { JWT } from "next-auth/jwt";
 import { jwtDecode } from "jwt-decode";
+import { useTokenContext } from "./app/dummy/tokenContext";
 
 interface DecodedToken {
   iss: string;
