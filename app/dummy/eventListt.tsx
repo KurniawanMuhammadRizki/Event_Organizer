@@ -12,7 +12,7 @@ const EventListt = () => {
     const fetchEvents = async () => {
       try {
         // Gunakan token dari session jika ada
-        let token = session?.user?.token || "";
+        let token = session?.user?.id || "";
 
         // Jika tidak ada token di session, gunakan token hardcoded (hanya untuk testing)
         if (!token) {
